@@ -10,13 +10,17 @@
     </tr>
   </thead>
   <tbody>
-    <% @user.followings.each do |user| %>
+     <% if @user.followings.count == 0 %>
+      <td><p>ユーザーはいません</p></td>
+     <% else %>
+      <% @user.followings.each do |user| %>
      <tr>
        <td><%= attachment_image_tag(user, :profile_image, :fill,50,50,fallback: "no-image-icon.jpg") %></td>
        <td><%= user.name %></td>
        <td><%= "フォロー数:#{user.follower.count}" %></td>
        <td><%= "フォロワー数:#{user.followed.count}" %></td>
        <td><%= link_to 'Show', user_path(user),  class: "user_#{user.id}" %></td>
+       <% end %>
      </tr>
     <% end %>
   </tbody>
